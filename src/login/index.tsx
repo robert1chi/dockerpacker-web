@@ -1,12 +1,15 @@
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
+import { NButton } from 'naive-ui'
 
 export default defineComponent({
     setup() {
 
     },
     render() {
-        <div>
-            
-        </div>
+        return (
+            <div>
+                <NButton>Hello</NButton>
+            </div>
+        )
     }
 })
