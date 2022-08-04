@@ -3,7 +3,7 @@ import enUs from './modules/en-US';
 import zhCn from './modules/zh-CN';
 
 const i18n = createI18n({
-    locale: "en-US",
+    locale: "zh-CN",
     messages: {
         'en-US': {
             ...enUs
