@@ -1,7 +1,7 @@
 {
-  "name": "vite-project",
+  "name": "docker-packer-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "pinia": "^2.0.17",
-    
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"
   },
