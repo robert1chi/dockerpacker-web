@@ -2,13 +2,13 @@
 import { NButton, NForm, FormInst, useMessage } from "naive-ui";
 import store from "@/store/index.js";
 
-if(localStorage.getItem("session-token")) {
+if (localStorage.getItem("session-token")) {
   localStorage.removeItem("session-token");
-} 
-
-const loginSubmit =()=>{
-  console.log("loginSubmit"); 
 }
+
+const loginSubmit = () => {
+  console.log("loginSubmit");
+};
 </script>
 <template>
   <div>
@@ -20,7 +20,6 @@ const loginSubmit =()=>{
         <n-input></n-input>
       </n-form-item>
     </n-form>
-    <n-button type="primary" @click="loginSubmit
-    ">Hello</n-button>
+    <n-button type="primary" @click="loginSubmit">Hello</n-button>
   </div>
 </template>
