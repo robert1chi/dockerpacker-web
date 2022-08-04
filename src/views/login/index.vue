@@ -20,6 +20,6 @@ const loginSubmit = () => {
         <n-input></n-input>
       </n-form-item>
     </n-form>
-    <n-button type="primary" @click="loginSubmit">Hello</n-button>
+    <n-button type="primary" @click="loginSubmit">{{ $t("message.login") }}</n-button>
   </div>
 </template>
