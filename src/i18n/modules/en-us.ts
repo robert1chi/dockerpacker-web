@@ -1,5 +1,7 @@
 const enUs = {
-    message:{
+    loginPage:{
+        username: 'Username',
+        password: 'Password',
         login: 'Login',
         register: 'Register',
     }
