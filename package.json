@@ -5,13 +5,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:prod": "vue-tsc --noEmit && vite build --mode prod",
+    "build:dev": "vue-tsc --noEmit && vite build --mode dev"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "axios": "^0.27.2",
+    "crypto": "^1.0.1",
     "pinia": "^2.0.17",
+    "sass": "^1.54.2",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.0",
     "vue-router": "^4.1.3"
