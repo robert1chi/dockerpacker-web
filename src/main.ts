@@ -3,6 +3,7 @@ import { store } from './store'
 import router from './router'
 import App from './App.vue'
 import i18n from './i18n'
+import './main.css'
 
 const app = createApp(App)
 
