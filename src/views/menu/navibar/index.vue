@@ -4,7 +4,7 @@ import { ref, reactive } from "vue";
 const title = ref("");
 </script>
 <template>
-    <div class="nav">
+    <div class="nav grid gap-4">
         <div class="logo">
             
         </div>
@@ -13,17 +13,3 @@ const title = ref("");
         </div>
     </div>
 </template>
-
-<style lang="scss" scoped>
-.nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    .logo{
-        left:0;
-    }
-    .icon-list{
-        right:0;
-    }
-}
-
-</style>
