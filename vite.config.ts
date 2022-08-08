@@ -22,6 +22,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       createVuePlugin(),
       vueJsx(),
     ],
+    css: {
+      postcss: {
+        plugins: [
+          require('tailwindcss'),
+          require('autoprefixer')
+        ]
+      }
+    },
     server: {
       port: 3002,
       host: '0.0.0.0',
