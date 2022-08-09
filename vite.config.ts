@@ -22,6 +22,20 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       createVuePlugin(),
       vueJsx(),
     ],
+    css: {
+      preprocessorOptions: {
+        //define global scss variable
+        scss: {
+          additionalData: `@import '@/styles/variables.scss';`,
+        },
+      },
+      postcss: {
+        plugins: [
+          require('tailwindcss'),
+          require('autoprefixer')
+        ]
+      }
+    },
     server: {
       port: 3002,
       host: '0.0.0.0',
