@@ -1,4 +1,7 @@
 const enUs = {
+    dashboard:{
+        title: 'Control Center',
+    },
     loginPage:{
         username: 'Username',
         password: 'Password',
