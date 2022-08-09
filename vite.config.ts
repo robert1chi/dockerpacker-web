@@ -23,6 +23,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       vueJsx(),
     ],
     css: {
+      preprocessorOptions: {
+        //define global scss variable
+        scss: {
+          additionalData: `@import '@/styles/variables.scss';`,
+        },
+      },
       postcss: {
         plugins: [
           require('tailwindcss'),
