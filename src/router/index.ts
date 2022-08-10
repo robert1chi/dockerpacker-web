@@ -1,5 +1,8 @@
 import { useRoute, createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import components from './modules/components';
+import dashboard from './modules/dashboard';
+
+const asyncRouter:Array<RouteRecordRaw> = [...components,...dashboard];
 
 const defaultRouter: Array<RouteRecordRaw> = [{
     path: '/',
@@ -18,7 +21,7 @@ const defaultRouter: Array<RouteRecordRaw> = [{
 }
 ]
 
-export const allRoutes = [...defaultRouter, ...components]
+export const allRoutes = [...asyncRouter, ...defaultRouter]
 
 export const getActive = (maxLevel = 2): string => {
     const route = useRoute();

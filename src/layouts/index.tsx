@@ -1,6 +1,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton } from "naive-ui";
+import i18n from "@/i18n";
+import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown } from "naive-ui";
 
 // import './index.css'
 
@@ -19,6 +20,12 @@ export default defineComponent({
             { label: '首页', path: '/' },
             { label: '项目', path: '/project' },
         ]);
+
+        const getCurrentRoute = () => {
+            const { matched } = route;
+            const currRoute = matched.filter(item => item)
+            return currRoute
+        }
 
         const navibar = () => {
             return (
@@ -43,14 +50,32 @@ export default defineComponent({
             )
         }
 
+        const breadcrumb = () => {
+            return (
+                <div className="breadcrumb-container">
+                    <NBreadcrumb>
+                        {
+                            getCurrentRoute().map((item,index) => {
+                                return (
+                                    <NBreadcrumbItem key={index}>
+                                        <NDropdown>{i18n.global.t(String(item.meta.title))}</NDropdown>
+                                    </NBreadcrumbItem>
+                                )
+                            })
+                        }
+                    </NBreadcrumb>
+                </div>
+            )
+        }
         return {
             navibar,
             contentHeight,
+            breadcrumb,
         }
     },
     render() {
         const Navibar = this.navibar
-
+        const Breadcrumb = this.breadcrumb
         return (
             <div>
                 <NLayout className="n-layout n-layout--static-positioned h-screen">
@@ -62,6 +87,11 @@ export default defineComponent({
                     <div className="min-h-[calc(100vh-8rem)] p-4">
                         <NLayoutContent>
                             <NSpace vertical size="large">
+                                <div className="page-header">
+                                    <div>
+                                        <Breadcrumb />
+                                    </div>
+                                </div>
                                 <router-view />
                             </NSpace>
                         </NLayoutContent>
@@ -74,3 +104,4 @@ export default defineComponent({
         );
     }
 })
+

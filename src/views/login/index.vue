@@ -20,8 +20,6 @@ const loginList = {
   password: ref<string>(""),
 };
 
-const message = useMessage();
-
 const loginSubmit = () => {
   systemLogin({
     username: loginList.username.value,
@@ -31,7 +29,7 @@ const loginSubmit = () => {
 
     }
     else {
-      message.error(res.msg);
+      
     }
   });
 };
@@ -39,10 +37,10 @@ const loginSubmit = () => {
 <template>
   <div>
     <n-form>
-      <n-form-item :label="`${$t('loginPage.username')}`">
+      <n-form-item :label="$t('loginPage.username')">
         <n-input v-model="loginList.username"></n-input>
       </n-form-item>
-      <n-form-item :label="`${$t('loginPage.password')}`">
+      <n-form-item :label="$t('loginPage.password')">
         <n-input v-model="loginList.password"></n-input>
       </n-form-item>
     </n-form>
