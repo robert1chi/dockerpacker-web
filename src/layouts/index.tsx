@@ -23,7 +23,13 @@ export default defineComponent({
 
         const getCurrentRoute = () => {
             const { matched } = route;
+            // const currRoute = [matched.forEach(item => { 
+            //     return item
+            //     // {label:item.children.meta.title,key:item.} 
+            // })]
+            const getRoutes = router.getRoutes()
             const currRoute = matched.filter(item => item)
+            console.log(getRoutes)
             return currRoute
         }
 
@@ -55,10 +61,14 @@ export default defineComponent({
                 <div className="breadcrumb-container">
                     <NBreadcrumb>
                         {
-                            getCurrentRoute().map((item,index) => {
+                            getCurrentRoute().map((item, index) => {
                                 return (
                                     <NBreadcrumbItem key={index}>
-                                        <NDropdown>{i18n.global.t(String(item.meta.title))}</NDropdown>
+                                        <NDropdown>
+                                            <div class="trigger">
+                                                {i18n.global.t(String(item.meta.title))}
+                                            </div>
+                                        </NDropdown>
                                     </NBreadcrumbItem>
                                 )
                             })
@@ -88,7 +98,7 @@ export default defineComponent({
                         <NLayoutContent>
                             <NSpace vertical size="large">
                                 <div className="page-header">
-                                    <div>
+                                    <div className="page-header-breadcrumb">
                                         <Breadcrumb />
                                     </div>
                                 </div>

@@ -8,6 +8,8 @@ const enUs = {
         password: 'Password',
         login: 'Login',
         register: 'Register',
+        usrplaceholder:'Please enter username',
+        pwdplaceholder:'Please enter password'
     }
 }
 

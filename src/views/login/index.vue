@@ -7,29 +7,30 @@ import {
   FormInst,
   useMessage,
 } from "naive-ui";
-import store from "@/store/index.js";
-import { ref } from "vue";
+import store from "@/store/index";
+import { reactive, toRefs } from "vue";
 import { systemLogin } from "@/utils/api/system";
+import { useRouter } from "vue-router";
 
 if (localStorage.getItem("session-token")) {
   localStorage.removeItem("session-token");
 }
 
-const loginList = {
-  username: ref<string>(""),
-  password: ref<string>(""),
-};
+const router = useRouter();
+
+const loginList = reactive({
+  username: "",
+  password: "",
+});
+const { username, password } = toRefs<{ username: string; password: string }>(
+  loginList
+);
 
 const loginSubmit = () => {
-  systemLogin({
-    username: loginList.username.value,
-    password: loginList.password.value,
-  }).then((res) => {
-    if(res.code===0){
-
-    }
-    else {
-      
+  systemLogin(loginList).then((res) => {
+    if (res.code === 0 && res.data.token) {
+      router.push("/");
+    } else {
     }
   });
 };
@@ -38,10 +39,18 @@ const loginSubmit = () => {
   <div>
     <n-form>
       <n-form-item :label="$t('loginPage.username')">
-        <n-input v-model="loginList.username"></n-input>
+        <n-input
+          :value="username"
+          :placeholder="$t('loginPage.usrplaceholder')"
+        ></n-input>
       </n-form-item>
       <n-form-item :label="$t('loginPage.password')">
-        <n-input v-model="loginList.password"></n-input>
+        <n-input
+          :value="password"
+          type="password"
+          show-password-on="mousedown"
+          :placeholder="$t('loginPage.pwdplaceholder')"
+        ></n-input>
       </n-form-item>
     </n-form>
     <n-form inline>

@@ -1,22 +1,24 @@
-import { useRoute, createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { useRoute, createRouter, createWebHashHistory, RouteRecordRaw, _RouteRecordBase } from 'vue-router';
 import components from './modules/components';
 import dashboard from './modules/dashboard';
 
-const asyncRouter:Array<RouteRecordRaw> = [...components,...dashboard];
+const asyncRouter: Array<RouteRecordRaw> = [...components, ...dashboard];
 
 const defaultRouter: Array<RouteRecordRaw> = [{
     path: '/',
     name: 'home',
-    component: () => import('@/views/home/index.vue')
+    redirect: '/dashboard/index'
 },
 {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/index.vue')
+    hidden: true,
+    component: () => import('@/views/login/index.vue'),
 },
 {
     path: '/:w+',
     name: '404',
+    hidden: true,
     redirect: '/result/404',
 }
 ]

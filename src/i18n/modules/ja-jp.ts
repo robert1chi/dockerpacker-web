@@ -8,6 +8,8 @@ const jaJp = {
         password: 'パスワード',
         login: 'ログイン',
         register: '登録',
+        usrplaceholder:'ユーザー名を入力してください',
+        pwdplaceholder:'パスワードを入力してください'
     }
 }
 
