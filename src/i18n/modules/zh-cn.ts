@@ -8,6 +8,8 @@ const zhCn = {
         password: '密码',
         login: '登录',
         register: '注册',
+        usrplaceholder:'请输入用户名',
+        pwdplaceholder:'请输入密码'
     }
 }
 

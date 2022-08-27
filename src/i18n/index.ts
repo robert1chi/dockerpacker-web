@@ -4,7 +4,7 @@ import jaJp from './modules/ja-jp';
 import zhCn from './modules/zh-CN';
 
 const i18n = createI18n({
-    locale: "ja-JP",
+    locale: "en-US",
     messages: {
         'en-US': {
             ...enUs
