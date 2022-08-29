@@ -12,14 +12,14 @@ const defaultRouter: Array<RouteRecordRaw> = [{
 {
     path: '/login',
     name: 'login',
-    hidden: true,
     component: () => import('@/views/login/index.vue'),
+    meta: { hidden: false }
 },
 {
     path: '/:w+',
     name: '404',
-    hidden: true,
     redirect: '/result/404',
+    meta: { hidden: true }
 }
 ]
 

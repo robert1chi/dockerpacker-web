@@ -18,4 +18,9 @@ type LoginOutput = {
 export const systemLogin = (data: LoginInput): ApiResponse<LoginOutput> => {
     return request.post('/users/login', data)
 }
-
+/** 
+ * Logout Controller
+ */
+export const systemLogout = (): ApiResponse<any> => {
+    return request.post('/users/logout')
+}

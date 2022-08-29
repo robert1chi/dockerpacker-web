@@ -1,5 +1,6 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { systemLogout } from "@/utils/api/system";
 import i18n from "@/i18n";
 import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown } from "naive-ui";
 
@@ -17,8 +18,9 @@ export default defineComponent({
 
         })
         const list = ref([
-            { label: '首页', path: '/' },
-            { label: '项目', path: '/project' },
+            { label: 'layouts.homePage', path: '/', method(path: string) { router.push(path) } },
+            { label: 'layouts.projects', path: '/project', method(path: string) { router.push(path) } },
+            { label: 'layouts.logout', path: '/login', method(path: string) { systemLogout(); router.push(path) } },
         ]);
 
         const getCurrentRoute = () => {
@@ -36,17 +38,15 @@ export default defineComponent({
         const navibar = () => {
             return (
                 <div className="header-container flex justify-between items-center">
-                    <div className="header-title flex items-center">
+                    <div className="header-title flex items-center ml-5">
                         <span>Docker Packer</span>
                     </div>
-                    <div className="header-menu space-x-6 flex">
+                    <div className="header-menu space-x-3 flex mr-5">
                         {
                             list.value.map(item => {
                                 return (
                                     <div className="header-menu-item">
-                                        <NButton quaternary size="small" onClick={() => {
-                                            router.push(item.path);
-                                        }}>{item.label}</NButton>
+                                        <NButton quaternary size="small" onClick={() => item.method(item.path)}>{i18n.global.t(item.label)}</NButton>
                                     </div>
                                 )
                             })

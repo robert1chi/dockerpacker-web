@@ -17,6 +17,7 @@ if (localStorage.getItem("session-token")) {
 }
 
 const router = useRouter();
+const message = useMessage();
 
 const loginList = reactive({
   username: "",
@@ -27,12 +28,18 @@ const { username, password } = toRefs<{ username: string; password: string }>(
 );
 
 const loginSubmit = () => {
-  systemLogin(loginList).then((res) => {
-    if (res.code === 0 && res.data.token) {
-      router.push("/");
-    } else {
-    }
-  });
+  systemLogin(loginList)
+    .then((res) => {
+      if (res.code === 0 && res.data.token) {
+        router.push("/");
+      } else {
+        console.log(res)
+        message.error(res.msg as string);
+      }
+    })
+    .catch((err) => {
+      message.error(err.msg as string);
+    });
 };
 </script>
 <template>
@@ -40,13 +47,13 @@ const loginSubmit = () => {
     <n-form>
       <n-form-item :label="$t('loginPage.username')">
         <n-input
-          :value="username"
+          v-model:value="username"
           :placeholder="$t('loginPage.usrplaceholder')"
         ></n-input>
       </n-form-item>
       <n-form-item :label="$t('loginPage.password')">
         <n-input
-          :value="password"
+          v-model:value="password"
           type="password"
           show-password-on="mousedown"
           :placeholder="$t('loginPage.pwdplaceholder')"

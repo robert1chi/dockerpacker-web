@@ -10,6 +10,13 @@ const zhCn = {
         register: '注册',
         usrplaceholder:'请输入用户名',
         pwdplaceholder:'请输入密码'
+    },
+    layouts:{
+        homePage:'首页',
+        systemManage:'系统管理',
+        userManage:'用户管理',
+        projects:'项目管理',
+        logout:'退出'
     }
 }
 
