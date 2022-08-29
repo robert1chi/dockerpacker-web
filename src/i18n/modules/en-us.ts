@@ -10,6 +10,13 @@ const enUs = {
         register: 'Register',
         usrplaceholder:'Please enter username',
         pwdplaceholder:'Please enter password'
+    },
+    layouts:{
+        homePage:'Home',
+        systemManage:'System Management',
+        userManage:'User Management',
+        projects:'Projects',
+        logout:'Logout'
     }
 }
 
