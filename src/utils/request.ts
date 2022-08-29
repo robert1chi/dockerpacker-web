@@ -3,7 +3,7 @@ import axios from "axios";
 
 const env = process.env.NODE_ENV|| 'dev';
 
-const host = env === 'dev' ? 'http://localhost:3000' : 'http://localhost:3000';
+const host = env === 'dev' ? 'http://localhost:3000/api' : 'http://localhost:3000/api';
 
 const CODE = {
   LOGIN_TIMEOUT: 1000,
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
         router.push({ path: '/login' })
       }
     }
-    return response;
+    return response.data;
   },
   async (err) => {
     const { config } = err;
