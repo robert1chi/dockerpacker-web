@@ -6,13 +6,13 @@ export default [
         name: 'result',
         component: Layout,
         redirect: '/result/404',
-        meta: { title: '结果页' },
+        meta: { title: 'result.title' },
         children: [{
             path: '404',
             name: '404',
-            component: () => import('@/views/layouts/404.vue'),
+            component: () => import('@/views/result/404/index.vue'),
             meta: {
-                title: '404'
+                title: 'result.notfound'
             }
         }]
     }

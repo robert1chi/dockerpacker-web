@@ -2,9 +2,9 @@ import { useRoute, createRouter, createWebHashHistory, RouteRecordRaw, _RouteRec
 import components from './modules/components';
 import dashboard from './modules/dashboard';
 
-const asyncRouter: Array<RouteRecordRaw> = [...components, ...dashboard];
+const asyncRouter: RouteRecordRaw[] = [...components, ...dashboard];
 
-const defaultRouter: Array<RouteRecordRaw> = [{
+const defaultRouter: RouteRecordRaw[] = [{
     path: '/',
     name: 'home',
     redirect: '/dashboard/index'
@@ -20,10 +20,9 @@ const defaultRouter: Array<RouteRecordRaw> = [{
     name: '404',
     redirect: '/result/404',
     meta: { hidden: true }
-}
-]
+}]
 
-export const allRoutes = [...asyncRouter, ...defaultRouter]
+export const allRoutes = [...defaultRouter, ...asyncRouter]
 
 export const getActive = (maxLevel = 2): string => {
     const route = useRoute();
