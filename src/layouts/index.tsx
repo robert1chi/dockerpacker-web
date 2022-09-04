@@ -128,7 +128,6 @@ export default defineComponent({
                                     </NButton>
                                 </div>
                             </NSpace>
-
                         </NLayoutFooter>
                     </div>
                 </NLayout>

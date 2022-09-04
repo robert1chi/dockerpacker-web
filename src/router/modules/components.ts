@@ -9,10 +9,11 @@ export default [
         meta: { title: 'result.title' },
         children: [{
             path: '404',
-            name: '404',
+            name: 'Result404',
             component: () => import('@/views/result/404/index.vue'),
             meta: {
-                title: 'result.notfound'
+                title: 'result.notfound',
+                requiresAuth: true
             }
         }]
     }

@@ -12,7 +12,8 @@ export default [
             name: 'index',
             component: () => import('@/views/dashboard'),
             meta: {
-                title: 'dashboard.index'
+                title: 'dashboard.index',
+                requiresAuth: true
             }
         }]
     }

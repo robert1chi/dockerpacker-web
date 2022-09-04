@@ -1,30 +1,62 @@
 import { useRoute, createRouter, createWebHashHistory, RouteRecordRaw, _RouteRecordBase } from 'vue-router';
-import components from './modules/components';
-import dashboard from './modules/dashboard';
+import uniq from 'lodash/uniq';
 
-const asyncRouter: RouteRecordRaw[] = [...components, ...dashboard];
+const modules: Record<string, {
+    [key: string]: any;
+}> = import.meta.glob('./modules/**/*.ts', { eager: true })
 
-const defaultRouter: RouteRecordRaw[] = [{
-    path: '/',
-    name: 'home',
-    redirect: '/dashboard/index'
-},
-{
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/index.vue'),
-    meta: { hidden: false }
-},
-{
-    path: '/:w+',
-    name: '404',
-    redirect: '/result/404',
-    meta: { hidden: true }
-}]
+const routeModuleList: RouteRecordRaw[] = [];
 
-export const allRoutes = [...defaultRouter, ...asyncRouter]
+Object.keys(modules).forEach((key) => {
+    const mod = modules[key].default || {};
+    const modList = Array.isArray(mod) ? [...mod] : [mod];
+    routeModuleList.push(...modList);
+});
 
-export const getActive = (maxLevel = 2): string => {
+export const asyncRouter: RouteRecordRaw[] = [...routeModuleList];
+
+const defaultRouter: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'home',
+        redirect: '/dashboard/index',
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/login/index.vue'),
+        meta: { hidden: false }
+    },
+    {
+        path: '/:w+',
+        name: '404Page',
+        redirect: '/result/404'
+    }
+]
+
+export const allRoutes = [...defaultRouter, ...asyncRouter,]
+
+export const getRoutesExpanded = () => {
+    const expandedRoutes: string[] = [];
+
+    allRoutes.forEach((item) => {
+        if (item.meta && item.meta.expanded) {
+            expandedRoutes.push(item.path);
+        }
+        if (item.children && item.children.length > 0) {
+            item.children
+                .filter((child) => child.meta && child.meta.expanded)
+                .forEach((child: RouteRecordRaw) => {
+                    expandedRoutes.push(item.path);
+                    expandedRoutes.push(`${item.path}/${child.path}`);
+                });
+        }
+    });
+    return uniq(expandedRoutes);
+};
+
+export const getActive = (maxLevel = 3): string => {
     const route = useRoute();
     if (!route.path) {
         return '';
