@@ -2,7 +2,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { systemLogout } from "@/utils/api/system";
 import i18n from "@/i18n";
-import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon } from "naive-ui";
+import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon, NText } from "naive-ui";
 import { BrandGithub } from "@vicons/tabler";
 
 // import './index.css'
@@ -114,21 +114,21 @@ export default defineComponent({
                     <div className="p-4 min-h-[4rem] bg-[rgba(128,128,128,0.2)]">
                         <NLayoutFooter style={"background: rgba(0,0,0,0);"}>
                             <NSpace justify="end">
-                                <NButton>
-                                    {i18n.global.t('layouts.footer.copyright')}
-                                </NButton>
-                                <NButton>
-                                    {i18n.global.t('layouts.footer.version')}
-                                </NButton>
-                                <NButton>
-                                    {i18n.global.t('layouts.footer.copyright')}
-                                </NButton>
-                                <NButton onClick={this.handleGithub}>
-                                    <NIcon>
-                                        <BrandGithub />
-                                    </NIcon>
-                                </NButton>
+                                <div className="flex items-center gap-4">
+                                    <NText>
+                                        DockerPacker 0.0.0-alpha.1
+                                    </NText>
+                                    <NText>
+                                        Made by PicoAoi
+                                    </NText>
+                                    <NButton onClick={this.handleGithub} >
+                                        <NIcon>
+                                            <BrandGithub />
+                                        </NIcon>
+                                    </NButton>
+                                </div>
                             </NSpace>
+
                         </NLayoutFooter>
                     </div>
                 </NLayout>
