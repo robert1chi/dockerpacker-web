@@ -9,7 +9,11 @@ const enUs = {
         login: 'Login',
         register: 'Register',
         usrplaceholder:'Please enter username',
-        pwdplaceholder:'Please enter password'
+        pwdplaceholder:'Please enter password',
+        empty: 'Username and password cannot be empty',
+        forbidden: 'Account is forbidden',
+        failed: 'Login failed, please try again',
+        noUser: 'Username or password is incorrect',
     },
     layouts:{
         homePage:'Home',
@@ -17,6 +21,10 @@ const enUs = {
         userManage:'User Management',
         projects:'Projects',
         logout:'Logout'
+    },
+    result: {
+        title: 'Result Page',
+        notfound: '404'
     }
 }
 

@@ -1,14 +1,18 @@
 import router from "@/router";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { createDiscreteApi } from "naive-ui";
+import i18n from "@/i18n";
 
-const env = process.env.NODE_ENV|| 'dev';
+const {message} = createDiscreteApi(['message']);
+const env = process.env.NODE_ENV || 'dev';
 
 const host = env === 'dev' ? 'http://localhost:3000/api' : 'http://localhost:3000/api';
 
 const CODE = {
   LOGIN_TIMEOUT: 1000,
   REQUEST_SUCCESS: 0,
-  REQUEST_FOBID: 500,
+  REQUEST_FOBID: [500, 400, 401, 403, 404],
 };
 
 const instance = axios.create({
@@ -27,8 +31,10 @@ instance.interceptors.response.use(
       const { data } = response;
       if (data.code === CODE.REQUEST_SUCCESS) {
         return data;
-      } else if (data.code === CODE.REQUEST_FOBID) {
+      } else if (CODE.REQUEST_FOBID.includes(data.code)) {
+        message.error(i18n.global.t(data.msg));
         router.push({ path: '/login' })
+        Cookies.remove('HAS_LOGIN')
       }
     }
     return response.data;
