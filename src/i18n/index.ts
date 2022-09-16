@@ -4,7 +4,9 @@ import jaJp from './modules/ja-jp';
 import zhCn from './modules/zh-CN';
 
 const i18n = createI18n({
+    legacy: false,
     locale: "zh-CN",
+    fallbackLocale: 'en',
     messages: {
         'en-US': {
             ...enUs
@@ -12,7 +14,7 @@ const i18n = createI18n({
         'zh-CN': {
             ...zhCn
         },
-        'ja-JP':{
+        'ja-JP': {
             ...jaJp
         }
     }

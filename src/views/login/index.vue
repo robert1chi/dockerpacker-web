@@ -12,7 +12,7 @@ import store from "@/store/index";
 import { reactive, toRefs, onBeforeUnmount } from "vue";
 import { systemLogin } from "@/utils/api/system";
 import { useRouter } from "vue-router";
-import { intervalToDuration } from "date-fns";
+import i18n from "@/i18n";
 
 if (localStorage.getItem("session-token")) {
   localStorage.removeItem("session-token");
@@ -36,14 +36,14 @@ const loginSubmit = () => {
         router.push("/");
       } else {
         console.log(res);
-        message.error(res.msg as string);
+        message.error(i18n.global.t(res.msg ?? ""));
       }
     })
     .catch((err) => {
-      message.error(err.msg as string);
+      message.error(i18n.global.t(err.msg ?? ""));
     });
 };
-document.getElementsByTagName("body")[0].className="active";
+document.getElementsByTagName("body")[0].className = "active";
 onBeforeUnmount(() => {
   document.body.classList.remove("active");
 });
@@ -70,19 +70,17 @@ onBeforeUnmount(() => {
               type="password"
               show-password-on="mousedown"
               :placeholder="$t('loginPage.pwdplaceholder')"
-            ></n-input>
-          </n-form-item>
-          <n-form-item>
-            <n-space>
-              <n-button type="info" @click="loginSubmit">
-                {{ $t("loginPage.login") }}
-              </n-button>
-              <n-button @click="loginSubmit">
-                {{ $t("loginPage.register") }}
-              </n-button>
-            </n-space>
+            />
           </n-form-item>
         </n-form>
+        <n-space justify="space-around" size="large">
+          <n-button type="primary" @click="loginSubmit">
+            {{ $t("loginPage.login") }}
+          </n-button>
+          <n-button @click="loginSubmit">
+            {{ $t("loginPage.register") }}
+          </n-button>
+        </n-space>
       </n-card>
     </div>
   </div>
@@ -91,15 +89,18 @@ onBeforeUnmount(() => {
 .active {
   background: linear-gradient(
     -45deg,
-    #23d5ab,
-    #ee7752,
-    #e73c7e,
-    #23a6d5,
-    #23d5ab,
-    #ee7752,
-    #e73c7e,
-    #23a6d5,
-    #23d5ab
+    #96e6a1,
+    #d4fc79,
+    #84fab0,
+    #8fd3f4,
+    #4facfe,
+    #00f2fe,
+    #96e6a1,
+    #d4fc79,
+    #84fab0,
+    #8fd3f4,
+    #4facfe,
+    #00f2fe
   );
   background-size: 1000% 1000%;
   animation: gradient 15s ease infinite;

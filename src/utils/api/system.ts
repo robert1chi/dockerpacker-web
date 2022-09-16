@@ -11,6 +11,13 @@ type LoginOutput = {
         roles: string[]
     }
 }
+type UserInfo = {
+    userDetail: {
+        id: string
+        username: string
+        role: number
+    }
+}
 
 /**
  * Login Controller
@@ -21,6 +28,12 @@ export const systemLogin = (data: LoginInput): ApiResponse<LoginOutput> => {
 /** 
  * Logout Controller
  */
-export const systemLogout = (): ApiResponse<any> => {
+export const systemLogout = (): ApiResponse => {
     return request.post('/users/logout')
+}
+/**
+ * User Detail
+ */
+export const systemUserDetail = (): ApiResponse<UserInfo> => {
+    return request.get('/users/detail')
 }

@@ -6,7 +6,7 @@ export default [
         name: 'dashboard',
         component: Layout,
         redirect: '/dashboard/index',
-        meta: { title: 'dashboard.title' },
+        meta: { title: 'dashboard.title', requiresAuth: true },
         children: [{
             path: 'index',
             name: 'index',

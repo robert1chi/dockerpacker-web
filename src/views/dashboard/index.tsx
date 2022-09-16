@@ -53,6 +53,32 @@ export default defineComponent({
                                     {this.dashboard.containerList[0].status}
                                 </span>
                             </NCard>
+                            <NCard title={this.dashboard.containerList[0].name}>
+                                <span>
+                                    {this.dashboard.containerList[0].status}
+                                </span>
+                            </NCard>
+                            <NCard title={this.dashboard.containerList[0].name}>
+                                <span>
+                                    {this.dashboard.containerList[0].status}
+                                </span>
+                            </NCard>
+                            <NCard title={this.dashboard.containerList[0].name}>
+                                <span>
+                                    {this.dashboard.containerList[0].status}
+                                </span>
+                            </NCard>
+                            <NCard title={this.dashboard.containerList[0].name}>
+                                <span>
+                                    {this.dashboard.containerList[0].status}
+                                </span>
+                            </NCard>
+                            <NCard title={this.dashboard.containerList[0].name}>
+                                <span>
+                                    {this.dashboard.containerList[0].status}
+                                </span>
+                            </NCard>
+
                         </NSpace>
                     </NGi>
                     <NGi>
