@@ -41,6 +41,8 @@ const zhCn = {
             info: '个人资料',
             username: '用户名',
             email: '邮箱',
+            usernamePlaceholder: '请输入用户名',
+            emailPlaceholder: '请输入邮箱',
         },
     }
 }

@@ -17,11 +17,11 @@ export default defineComponent({
         const handleAvatar = async () => {
             systemUserDetail()
                 .then(({ data }) => {
-                    avatar.value = data.userDetail.username.slice(0, 1)
+                    avatar.value = data.username.slice(0, 1)
                 })
-                .catch((err) => {
-                    console.log(err.msg)
-                    message.error(err.msg)
+                .catch(({ msg }) => {
+                    console.log(msg)
+                    message.error(msg)
                 })
         }
         handleAvatar()
@@ -29,7 +29,7 @@ export default defineComponent({
         const options = [
             {
                 label: t('layouts.logout'),
-                key: t('layouts.logout'),
+                key: 'layouts.logout',
                 props: {
                     onClick: async () => {
                         systemLogout().then((res) => {
@@ -43,8 +43,8 @@ export default defineComponent({
                 }
             },
             {
-                label: t('users.profile'),
-                key: t('users.profile'),
+                label: t('users.profile.title'),
+                key: 'users.profile',
                 props: {
                     onClick: () => {
                         router.push('/users/profile')
@@ -52,14 +52,10 @@ export default defineComponent({
                 }
             }
         ]
-        const handleSelect = (key: string | number) => {
-            message.info(String(key))
-        }
         return {
             list,
             avatar,
             options,
-            handleSelect,
             t
         }
     },
@@ -79,7 +75,7 @@ export default defineComponent({
                             )
                         })
                     }
-                    <NDropdown options={this.options} onSelect={this.handleSelect}>
+                    <NDropdown options={this.options}>
                         <NButton quaternary circle>
                             <NAvatar round>
                                 {this.avatar}

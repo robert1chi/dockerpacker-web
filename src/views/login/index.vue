@@ -8,19 +8,15 @@ import {
   useMessage,
   NSpace,
 } from "naive-ui";
-import store from "@/store/index";
 import { reactive, toRefs, onBeforeUnmount } from "vue";
-import { systemLogin } from "@/utils/api/system";
 import { useRouter } from "vue-router";
-import i18n from "@/i18n";
-
-if (localStorage.getItem("session-token")) {
-  localStorage.removeItem("session-token");
-}
+import { useI18n } from "vue-i18n";
+import { userStore } from "@/store/modules/user";
 
 const router = useRouter();
 const message = useMessage();
-
+const i18n = useI18n();
+const useUserStore = userStore();
 const loginList = reactive({
   username: "",
   password: "",
@@ -29,19 +25,18 @@ const { username, password } = toRefs<{ username: string; password: string }>(
   loginList
 );
 
-const loginSubmit = () => {
-  systemLogin(loginList)
-    .then((res) => {
-      if (res.code === 0 && res.data.token) {
-        router.push("/");
-      } else {
-        console.log(res);
-        message.error(i18n.global.t(res.msg ?? ""));
-      }
-    })
-    .catch((err) => {
-      message.error(i18n.global.t(err.msg ?? ""));
+const loginSubmit = async () => {
+  try {
+    await useUserStore.login({
+      username: loginList.username,
+      password: loginList.password,
     });
+    router.push("/");
+  } catch (err) {
+    if (err instanceof Error) {
+      message.error(i18n.t(err.message));
+    }
+  }
 };
 document.getElementsByTagName("body")[0].className = "active";
 onBeforeUnmount(() => {
