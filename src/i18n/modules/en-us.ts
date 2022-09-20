@@ -26,9 +26,16 @@ const enUs = {
         title: 'Result Page',
         notfound: '404'
     },
+    token: {
+        empty: 'token cannot be empty',
+        id_not_match: 'token and user id do not match',
+        expired: 'token is expired',
+        invalid: 'token is invalid',
+    },
     users: {
         title: 'User Management',
         profile: {
+            avatar: 'Avatar',
             title: 'Personal Center',
             info: 'Personal Info',
             username: 'Username',

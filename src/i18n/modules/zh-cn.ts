@@ -33,11 +33,14 @@ const zhCn = {
     token: {
         empty: 'token不能为空',
         id_not_match: 'token与用户id不匹配',
+        expired: 'token已过期',
+        invalid: 'token无效',
     },
     users: {
         title: '用户管理',
         profile: {
             title: '个人中心',
+            avatar: '头像',
             info: '个人资料',
             username: '用户名',
             email: '邮箱',

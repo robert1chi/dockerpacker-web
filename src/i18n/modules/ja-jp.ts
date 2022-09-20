@@ -29,10 +29,13 @@ const jaJp = {
     token: {
         empty: 'tokenは空にできません',
         id_not_match: 'tokenとユーザーidが一致しません',
+        expired: 'tokenは期限切れです',
+        invalid: 'tokenは無効です',
     },
     users: {
         title: 'ユーザー管理',
         profile: {
+            avatar: 'アバター',
             title: '個人センター',
             info: '個人情報',
             usernmae: 'ユーザー名',
