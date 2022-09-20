@@ -1,5 +1,5 @@
-import { NButton, NCard, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NSpace } from "naive-ui";
-import { defineComponent, ref, h, Component, VNodeChild } from "vue";
+import { NCard, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NSpace } from "naive-ui";
+import { defineComponent, Component, VNodeChild, ref } from "vue";
 import type { MenuOption } from 'naive-ui'
 import { useI18n } from "vue-i18n";
 import UserInfo from "./components/userInfo";
@@ -16,8 +16,8 @@ export default defineComponent({
         }
         const menuOptions: MenuOption[] = [
             {
-                label: '个人设置',
-                key: 'user-profile',
+                label: t('users.profile.info'),
+                key: 'users.profile.info',
                 icon: renderIcon(Book2)
             },
             {
@@ -31,9 +31,11 @@ export default defineComponent({
                 icon: renderIcon(Book2)
             },
         ]
+        const currentLocal = ref<string>('users.profile.info')
         return {
             t,
-            menuOptions
+            menuOptions,
+            currentLocal
         }
     },
     render() {
@@ -44,13 +46,13 @@ export default defineComponent({
                         <NLayoutSider
                             bordered
                             collapseMode="width"
-                            width={240}
-                            contentStyle="padding: 24px;"
+                            width={180}
+
                         >
-                            <NMenu options={this.menuOptions} />
+                            <NMenu options={this.menuOptions} value={this.currentLocal} />
                         </NLayoutSider>
                         <NLayoutContent contentStyle="padding: 24px;">
-                            <UserInfo />
+                            {() => { if (this.currentLocal === 'users.profile.info') return <UserInfo /> }}
                         </NLayoutContent>
                     </NLayout>
                 </NCard>

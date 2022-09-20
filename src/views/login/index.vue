@@ -45,11 +45,8 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <div
-    class="w-[100vw] h-[100vh] flex items-center content-center justify-center login-bg"
+    class="w-screen h-screen flex items-center content-center justify-center login-bg"
   >
-    <!-- <canvas class="w-[100vw] h-[100vh] absolute z-0" id="login-canvas">
-      It seems that your browser does not support canvas.
-    </canvas> -->
     <div class="w-[50%] z-10">
       <n-card>
         <n-form>

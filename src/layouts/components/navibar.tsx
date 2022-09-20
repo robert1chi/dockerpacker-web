@@ -1,47 +1,56 @@
-import { defineComponent, onMounted, ref } from "vue";
-import { systemLogout, systemUserDetail } from "@/utils/api/system";
-import { useRouter } from "vue-router";
-import { NAvatar, NButton, NDropdown, useMessage } from "naive-ui";
+import { defineComponent, onMounted, ref, Component, computed } from "vue";
+import type { MenuOption } from 'naive-ui'
+import { userStore } from "@/store";
+import { RouterLink, useRouter, useRoute } from "vue-router";
+import { NAvatar, NButton, NDropdown, NMenu, useMessage, NIcon } from "naive-ui";
 import { useI18n } from "vue-i18n";
+import { Home, Template, UserCircle, Logout } from '@vicons/tabler'
 
 export default defineComponent({
     setup() {
         const router = useRouter();
+        const route = useRoute();
         const { t } = useI18n()
-
-        const list = [
-            { label: 'layouts.homePage', path: '/', method() { router.push(this.path) } },
-            { label: 'layouts.projects', path: '/manage', method() { router.push(this.path) } },
+        const useUser = userStore();
+        const message = useMessage()
+        const getCurrentRoute = (): string => {
+            const { matched } = route;
+            const currRoute = matched.filter(item => item)
+            return currRoute[1].meta.title as string
+        }
+        const activeKey = computed<string>(() => {
+            return getCurrentRoute()
+        })
+        const renderIcon = (icon: Component) => (() => (
+            <NIcon component={icon}>
+            </NIcon>
+        ))
+        const menuOptions: MenuOption[] = [
+            {
+                label: () => (<RouterLink to='/'>{t('layouts.homePage')}</RouterLink>),
+                key: 'dashboard.index',
+                icon: renderIcon(Home)
+            },
+            {
+                label: () => (<RouterLink to='/manage'>{t('layouts.projects')}</RouterLink>),
+                key: 'manage.homepage',
+                icon: renderIcon(Template)
+            },
         ]
         const avatar = ref<string>('')
         const handleAvatar = async () => {
-            systemUserDetail()
-                .then(({ data }) => {
-                    avatar.value = data.username.slice(0, 1)
-                })
-                .catch(({ msg }) => {
-                    console.log(msg)
-                    message.error(msg)
-                })
+            try {
+                await useUser.getUserDetail()
+                avatar.value = useUser.username.slice(0, 1).toUpperCase()
+            } catch (err) {
+                if (err instanceof Error) {
+                    message.error(err.message)
+                }
+            }
         }
         handleAvatar()
-        const message = useMessage()
+
         const options = [
-            {
-                label: t('layouts.logout'),
-                key: 'layouts.logout',
-                props: {
-                    onClick: async () => {
-                        systemLogout().then((res) => {
-                            if (res.code === 0) {
-                                router.push('/login')
-                            }
-                        }).catch((err) => {
-                            message.error(err.msg)
-                        })
-                    }
-                }
-            },
             {
                 label: t('users.profile.title'),
                 key: 'users.profile',
@@ -49,32 +58,43 @@ export default defineComponent({
                     onClick: () => {
                         router.push('/users/profile')
                     }
-                }
-            }
+                },
+                icon: renderIcon(UserCircle)
+            },
+            {
+                label: t('layouts.logout'),
+                key: 'layouts.logout',
+                props: {
+                    onClick: async () => {
+                        try {
+                            await useUser.logout()
+                            router.push('/login')
+                        } catch (err) {
+                            if (err instanceof Error) {
+                                message.error(err.message)
+                            }
+                        }
+                    }
+                },
+                icon: renderIcon(Logout)
+            },
         ]
         return {
-            list,
             avatar,
             options,
-            t
+            t,
+            menuOptions,
+            activeKey
         }
     },
     render() {
         return (
-            <div className="header-container flex justify-between items-center">
+            <div className="header-container flex justify-between items-center m-auto h-full">
                 <div className="header-title flex items-center ml-5">
                     <span>Docker Packer</span>
                 </div>
-                <div className="header-menu space-x-3 flex mr-5">
-                    {
-                        this.list.map(item => {
-                            return (
-                                <div className="header-menu-item">
-                                    <NButton quaternary size="small" onClick={() => item.method()}>{this.t(item.label)}</NButton>
-                                </div>
-                            )
-                        })
-                    }
+                <div className="header-menu space-x-3 flex mr-5 items-center">
+                    <NMenu options={this.menuOptions} mode="horizontal" value={this.activeKey} />
                     <NDropdown options={this.options}>
                         <NButton quaternary circle>
                             <NAvatar round>

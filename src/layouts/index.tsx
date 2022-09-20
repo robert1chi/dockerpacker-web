@@ -1,6 +1,6 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { NLayout, NLayoutHeader, NLayoutContent, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon, NText, NDivider, NAvatar } from "naive-ui";
+import { NLayout, NLayoutHeader, NLayoutFooter, NSpace, NButton, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon, NText, NDivider, NAvatar } from "naive-ui";
 import { BrandGithub } from "@vicons/tabler";
 import navibar from "./components/navibar";
 import { useI18n } from "vue-i18n";
@@ -16,15 +16,11 @@ export default defineComponent({
         const route = useRoute();
         const contentHeight = ref('height: 80vh');
         const { t } = useI18n()
-        onMounted(() => {
-
-        })
 
         const getCurrentRoute = () => {
             const { matched } = route;
             const getRoutes = router.getRoutes()
             const currRoute = matched.filter(item => item)
-            console.log(route)
             return currRoute
         }
 
@@ -66,10 +62,10 @@ export default defineComponent({
             <div style="min-height: 100vh; position: relative">
                 <NLayout position="absolute">
                     {/* <div className="p-4 h-16 bg-[rgba(128,128,128,0.2)] content-center flex items-center"> */}
-                    <NLayoutHeader style="height: 64px; padding: 1rem" bordered>
+                    <NLayoutHeader style="height: 64px;" bordered>
                         <Navibar />
                     </NLayoutHeader>
-                    <NLayout embedded position="absolute" style="top: 64px; bottom: 64px" content-style="padding: 24px;">
+                    <NLayout embedded position="absolute" style="top: 64px; bottom: 64px" contentStyle="padding: 24px;">
                         <NLayout embedded>
                             <NSpace vertical size="large">
                                 <div className="page-header">
@@ -84,10 +80,10 @@ export default defineComponent({
                     <NLayoutFooter
                         bordered
                         position="absolute"
-                        style={"height: 64px; padding: 1rem"}
+                        style={"height: 64px;"}
                     >
-                        <NSpace justify="end">
-                            <div className="flex items-center gap-4">
+                        <div className="h-full">
+                            <div className="gap-4 flex items-center m-auto h-full justify-end mr-4">
                                 <NText>
                                     DockerPacker 0.0.0-alpha.1
                                 </NText>
@@ -100,7 +96,7 @@ export default defineComponent({
                                     </NIcon>
                                 </NButton>
                             </div>
-                        </NSpace>
+                        </div>
                     </NLayoutFooter>
                 </NLayout>
             </div>
