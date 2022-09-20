@@ -5,24 +5,16 @@ type LoginInput = {
     username: string,
     password: string
 }
-type LoginOutput = {
-    token: any
-    userInfo: {
-        roles: string[]
-    }
-}
 type UserInfo = {
-    userDetail: {
-        id: string
-        username: string
-        role: number
-    }
+    role: number,
+    id: number,
+    username: string
 }
 
 /**
  * Login Controller
  */
-export const systemLogin = (data: LoginInput): ApiResponse<LoginOutput> => {
+export const systemLogin = (data: LoginInput): ApiResponse<UserInfo> => {
     return request.post('/users/login', data)
 }
 /** 

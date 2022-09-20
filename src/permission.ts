@@ -6,7 +6,7 @@ router.beforeEach((to, from, next) => {
         if (Cookies.get("HAS_LOGIN") === "true") {
             next();
         } else {
-            next("/login");
+            next(`/login?redirect=${to.path}`);
         }
     } else {
         next();

@@ -1,26 +1,49 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
-import { systemLogin } from "@/utils/api/system";
+import { systemLogin, systemLogout, systemUserDetail } from "@/utils/api/system";
 
-type IUserInfo = {
-    roles: any[];
-}
-
-const InitUserInfo: IUserInfo = {
-    roles: [],
+const InitUserInfo = {
+    role: -1,
+    username: "",
+    id: -1,
 };
 
 export const userStore = defineStore('users', {
     state: () => ({
-        userInfo: InitUserInfo,
+        userDetail: InitUserInfo,
     }),
     getters: {
-        roles: state => state.userInfo?.roles,
+        role: state => state.userDetail.role,
+        username: state => state.userDetail.username,
+        id: state => state.userDetail.id,
     },
     actions: {
         async login(userInfo: { username: string, password: string }) {
-            const { data } = await systemLogin(userInfo);
+            const res = await systemLogin(userInfo)
+            if (res.code === 0) {
+                this.userDetail = res.data
+            } else {
+                throw new Error(res.msg)
+            }
+        },
+        async logout(){
+            this.userDetail = InitUserInfo
+            const res = await systemLogout()
+            if (res.code !== 0) {
+                throw new Error(res.msg)
+            }
+        },
+        async getUserDetail() {
+            const res = await systemUserDetail()
+            if (res.code === 0) {
+                this.userDetail = res.data
+            } else {
+                throw new Error(res.msg)
+            }
         }
     }
 })
 
+export function getUserStore() {
+    return userStore(store);
+}

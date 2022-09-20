@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { NMessageProvider } from "naive-ui";
+import {
+  NMessageProvider,
+  NConfigProvider,
+  useOsTheme,
+  darkTheme,
+} from "naive-ui";
 import { useMutationObserver } from "@vueuse/core";
+import { computed } from "vue";
 
+const osThemeRef = useOsTheme();
+const theme = computed(() => (osThemeRef.value === "dark" ? darkTheme : null));
 // Fix the issue of Tailwind CSS and Naive UI
 useMutationObserver(
   document.head,
@@ -29,7 +37,9 @@ useMutationObserver(
 </script>
 
 <template>
-  <n-message-provider>
-    <router-view></router-view>
-  </n-message-provider>
+  <n-config-provider :theme="theme">
+    <n-message-provider>
+      <router-view></router-view>
+    </n-message-provider>
+  </n-config-provider>
 </template>
