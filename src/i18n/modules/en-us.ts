@@ -46,4 +46,4 @@ const enUs = {
     }
 }
 
-export default enUs
+export default enUs;
